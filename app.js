@@ -2,8 +2,12 @@ const express = require("express");
 const app = express();
 const port = 3000;
 const morgan = require("morgan");
+const favicon = require("serve-favicon");
+const path = require("path");
 const cars = require("./mock-cars");
 const { success } = require("./helper");
+
+app.use(favicon(path.join(__dirname, "public", "pakistan.ico")));
 
 app.use(morgan("dev"));
 

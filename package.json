@@ -18,7 +18,8 @@
   "homepage": "https://github.com/FutRR/node-api-cars#readme",
   "description": "",
   "dependencies": {
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "serve-favicon": "^2.5.1"
   },
   "devDependencies": {
     "morgan": "^1.10.1",
