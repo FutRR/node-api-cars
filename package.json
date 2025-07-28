@@ -8,5 +8,13 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FutRR/node-api-cars.git"
+  },
+  "bugs": {
+    "url": "https://github.com/FutRR/node-api-cars/issues"
+  },
+  "homepage": "https://github.com/FutRR/node-api-cars#readme",
   "description": ""
 }
