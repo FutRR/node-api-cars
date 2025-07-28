@@ -6,6 +6,7 @@ const cars = [
     year: 2020,
     image: "https://example.com/images/kangoo.jpg",
     assignedTo: "Jean Dupont",
+    assignementDate: new Date(),
   },
   {
     id: 2,
@@ -14,6 +15,7 @@ const cars = [
     year: 2019,
     image: "https://example.com/images/corsa.jpg",
     assignedTo: "Julie Martin",
+    assignementDate: new Date(),
   },
   {
     id: 3,
@@ -22,6 +24,7 @@ const cars = [
     year: 2021,
     image: "https://example.com/images/model3.jpg",
     assignedTo: "Ali Ben",
+    assignementDate: new Date(),
   },
   {
     id: 4,
@@ -30,6 +33,7 @@ const cars = [
     year: 2022,
     image: "https://example.com/images/208.jpg",
     assignedTo: "Sarah Lemoine",
+    assignementDate: new Date(),
   },
   {
     id: 5,
@@ -38,6 +42,7 @@ const cars = [
     year: 2018,
     image: "https://example.com/images/clio.jpg",
     assignedTo: "Michel Duran",
+    assignementDate: new Date(),
   },
   {
     id: 6,
@@ -46,6 +51,7 @@ const cars = [
     year: 2020,
     image: "https://example.com/images/i3.jpg",
     assignedTo: "Nina Giraud",
+    assignementDate: new Date(),
   },
   {
     id: 7,
@@ -54,6 +60,7 @@ const cars = [
     year: 2019,
     image: "https://example.com/images/golf.jpg",
     assignedTo: "Loïc Moreau",
+    assignementDate: new Date(),
   },
   {
     id: 8,
@@ -62,6 +69,7 @@ const cars = [
     year: 2017,
     image: "https://example.com/images/civic.jpg",
     assignedTo: "Chloé Fabre",
+    assignementDate: new Date(),
   },
   {
     id: 9,
@@ -70,6 +78,7 @@ const cars = [
     year: 2021,
     image: "https://example.com/images/leaf.jpg",
     assignedTo: "Thomas Leclerc",
+    assignementDate: new Date(),
   },
   {
     id: 10,
@@ -78,6 +87,7 @@ const cars = [
     year: 2020,
     image: "https://example.com/images/a3.jpg",
     assignedTo: "Emma Barret",
+    assignementDate: new Date(),
   },
   {
     id: 11,
@@ -86,6 +96,7 @@ const cars = [
     year: 2018,
     image: "https://example.com/images/fiesta.jpg",
     assignedTo: "Yassine Hamdi",
+    assignementDate: new Date(),
   },
   {
     id: 12,
@@ -94,6 +105,7 @@ const cars = [
     year: 2022,
     image: "https://example.com/images/zoe.jpg",
     assignedTo: "Alice Renard",
+    assignementDate: new Date(),
   },
 ];
 

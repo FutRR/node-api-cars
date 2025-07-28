@@ -2,14 +2,14 @@ const express = require("express");
 const app = express();
 const port = 3000;
 const morgan = require("morgan");
+const bodyParser = require("body-parser");
 const favicon = require("serve-favicon");
-const path = require("path");
 const cars = require("./mock-cars");
-const { success } = require("./helper");
+const { success, getUniqueId } = require("./helper");
 
-app.use(favicon(path.join(__dirname, "public", "pakistan.ico")));
-
+app.use(favicon(__dirname + "/pakistan.ico"));
 app.use(morgan("dev"));
+app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
   res.send("Hello, Tester!");
@@ -33,6 +33,15 @@ app.get(`/api/cars/:id`, (req, res) => {
   if (!car) {
     return res.status(404).json({ error: "Voiture introuvable" });
   }
+});
+
+app.post("/api/cars", (req, res) => {
+  const id = getUniqueId(cars);
+  const newCar = { ...req.body, ...{ id: id, assignementDate: new Date() } };
+  const message = `La voiture ${newCar.brand} ${newCar.name} a bien été créée`;
+  cars.push(newCar);
+
+  res.json(success(message, newCar));
 });
 
 app.listen(port, () => {

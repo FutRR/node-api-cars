@@ -4,3 +4,9 @@ exports.success = (message, data) => {
     data,
   };
 };
+
+exports.getUniqueId = (cars) => {
+  const maxId = Math.max(...cars.map((car) => car.id));
+  const uniqueId = maxId + 1;
+  return uniqueId;
+};
