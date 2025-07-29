@@ -1,5 +1,5 @@
 const { Sequelize } = require("sequelize");
-
+// Configuration Sequelize
 const sequelize = new Sequelize("parc_auto", "root", "", {
   host: "localhost",
   port: 3307,

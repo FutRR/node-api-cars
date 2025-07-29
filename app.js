@@ -6,9 +6,17 @@ const bodyParser = require("body-parser");
 const favicon = require("serve-favicon");
 const { success, getUniqueId } = require("./helper");
 const { sequelize, testConnexion, syncDb } = require("./src/db/sequelize");
-const Car = require("./src/models/car");
+const Car = require("./src/models/car")(sequelize);
 let cars = require("./src/db/mock-cars");
 
+//Routes
+require("./src/routes/findAllCars")(app, Car);
+require("./src/routes/findCarByPk")(app);
+require("./src/routes/createCar")(app);
+require("./src/routes/updateCar")(app);
+require("./src/routes/deleteCar")(app);
+
+// Initialisation de la DB
 const initializeApp = async () => {
   try {
     await testConnexion();
@@ -35,10 +43,12 @@ const initializeApp = async () => {
 
 initializeApp();
 
+// Middlewares
 app.use(favicon(__dirname + "/public/pakistan.ico"));
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 
+// Routes API
 app.get("/", (req, res) => {
   res.send("Hello, Tester!");
 });
@@ -96,6 +106,7 @@ app.delete(`/api/cars/:id`, (req, res) => {
   res.json(success(message));
 });
 
+// Lancement du serveur
 app.listen(port, () => {
   console.log(`Serveur lancé sur http://localhost:${port}`);
 });
