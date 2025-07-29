@@ -4,7 +4,7 @@ const port = 3000;
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const favicon = require("serve-favicon");
-const cars = require("./mock-cars");
+let cars = require("./mock-cars");
 const { success, getUniqueId } = require("./helper");
 
 app.use(favicon(__dirname + "/pakistan.ico"));
@@ -23,7 +23,6 @@ app.get(`/api/cars/:id`, (req, res) => {
   const id = parseInt(req.params.id);
   const car = cars.find((car) => car.id === id);
   const message = "Une voiture à été trouvée";
-  console.log(car);
 
   if (car == undefined) {
     return res.status(404).json({ error: "Identifiant introuvable" });
@@ -44,11 +43,29 @@ app.post("/api/cars", (req, res) => {
 app.put(`/api/cars/:id`, (req, res) => {
   const id = parseInt(req.params.id);
   let car = cars.find((car) => car.id === id);
-  const newCar = { ...req.body };
-  const message = `La voiture ${car.brand} ${car.name} a bien été modifiée`;
-  car = Object.assign(car, newCar);
+  const newCar = { ...req.body, ...{ id: id, assignementDate: new Date() } };
+  const message = `La voiture ${newCar.brand} ${newCar.name} a bien été modifiée`;
 
+  if (car == undefined) {
+    return res.status(404).json({ error: "Identifiant introuvable" });
+  }
+
+  car = Object.assign(car, newCar);
   res.json(success(message, car));
+});
+
+app.delete(`/api/cars/:id`, (req, res) => {
+  const id = parseInt(req.params.id);
+  const carIndex = cars.findIndex((car) => car.id === id);
+
+  if (carIndex === -1) {
+    return res.status(404).json({ error: "Identifiant introuvable" });
+  }
+
+  const car = cars[carIndex];
+  const message = `La voiture ${car.brand} ${car.name} a bien été supprimée`;
+  cars.splice(carIndex, 1);
+  res.json(success(message));
 });
 
 app.listen(port, () => {
