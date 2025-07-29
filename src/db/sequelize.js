@@ -1,3 +1,12 @@
+const { Sequelize } = require("sequelize");
+
+const sequelize = new Sequelize("parc_auto", "root", "", {
+  host: "localhost",
+  port: 3307,
+  dialect: "mariadb",
+  logging: false,
+});
+
 const now = new Date();
 const formattedDate = now.toLocaleString("fr-FR", {
   day: "2-digit",
@@ -15,4 +24,9 @@ const testConnexion = async () => {
   } catch (error) {
     console.error(`${formattedDate}Connexion à la BDD impossible:`, error);
   }
+};
+
+module.exports = {
+  sequelize,
+  testConnexion,
 };

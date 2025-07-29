@@ -1,5 +1,5 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../db/sequelize");
+const { Sequelize, DataTypes } = require("sequelize");
+const { sequelize } = require("../db/sequelize");
 
 const Car = sequelize.define(
   "Car",
@@ -29,10 +29,14 @@ const Car = sequelize.define(
       type: DataTypes.STRING,
       allowNull: true,
       get() {
-        return this.getDataValue("assignedTo").split(",");
+        const value = this.getDataValue("assignedTo");
+        return value ? value.split(",") : [];
       },
-      set() {
-        this.setDataValue("assignedTo", value.join(","));
+      set(value) {
+        this.setDataValue(
+          "assignedTo",
+          Array.isArray(value) ? value.join(",") : value
+        );
       },
     },
     assignementDate: {

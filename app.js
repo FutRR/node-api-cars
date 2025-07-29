@@ -5,36 +5,28 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const favicon = require("serve-favicon");
 const { success, getUniqueId } = require("./helper");
-const { Sequelize } = require("sequelize");
+const { sequelize, testConnexion } = require("./src/db/sequelize");
 let cars = require("./src/db/mock-cars");
 
-const sequelize = new Sequelize("parc_auto", "root", "", {
-  host: "localhost",
-  port: 3307,
-  dialect: "mariadb",
-  logging: false,
-});
-
-const now = new Date();
-const formattedDate = now.toLocaleString("fr-FR", {
-  day: "2-digit",
-  month: "2-digit",
-  year: "numeric",
-  hour: "2-digit",
-  minute: "2-digit",
-  hour12: false,
-});
-
-const testConnexion = async () => {
+const initializeApp = async () => {
   try {
-    await sequelize.authenticate();
-    console.log(`${formattedDate} - Connexion réussie à la BDD.`);
+    await testConnexion();
+
+    const Car = require("./src/models/car");
+    await Car.sync({});
+    console.log("Base de données synchronisée");
+
+    // Start server only after DB is ready
+    app.listen(port, () => {
+      console.log(`Serveur lancé sur http://localhost:${port}`);
+    });
   } catch (error) {
-    console.error(`${formattedDate}Connexion à la BDD impossible:`, error);
+    console.error("Erreur d'initialisation:", error);
+    process.exit(1);
   }
 };
 
-testConnexion();
+initializeApp();
 
 app.use(favicon(__dirname + "/public/pakistan.ico"));
 app.use(morgan("dev"));
