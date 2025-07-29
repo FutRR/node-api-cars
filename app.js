@@ -4,10 +4,29 @@ const port = 3000;
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const favicon = require("serve-favicon");
-let cars = require("./mock-cars");
 const { success, getUniqueId } = require("./helper");
+const { Sequelize } = require("sequelize");
+let cars = require("./src/db/mock-cars");
 
-app.use(favicon(__dirname + "/pakistan.ico"));
+const sequelize = new Sequelize("parc_auto", "root", "", {
+  host: "localhost",
+  port: 3307,
+  dialect: "mariadb",
+  logging: false,
+});
+
+const testConnexion = async () => {
+  try {
+    await sequelize.authenticate();
+    console.log("Connexion réussie à la BDD.");
+  } catch (error) {
+    console.error("Connexion à la BDD impossible:", error);
+  }
+};
+
+testConnexion();
+
+app.use(favicon(__dirname + "/public/pakistan.ico"));
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 
