@@ -5,7 +5,7 @@ const cars = [
     brand: "Renault",
     year: 2020,
     image: "https://example.com/images/kangoo.jpg",
-    assignedTo: "Jean Dupont",
+    assignedTo: ["Jean Dupont"],
     assignementDate: new Date(),
   },
   {
@@ -14,7 +14,7 @@ const cars = [
     brand: "Opel",
     year: 2019,
     image: "https://example.com/images/corsa.jpg",
-    assignedTo: "Julie Martin",
+    assignedTo: ["Julie Martin"],
     assignementDate: new Date(),
   },
   {
@@ -23,7 +23,7 @@ const cars = [
     brand: "Tesla",
     year: 2021,
     image: "https://example.com/images/model3.jpg",
-    assignedTo: "Ali Ben",
+    assignedTo: ["Ali Ben"],
     assignementDate: new Date(),
   },
   {
@@ -32,7 +32,7 @@ const cars = [
     brand: "Peugeot",
     year: 2022,
     image: "https://example.com/images/208.jpg",
-    assignedTo: "Sarah Lemoine",
+    assignedTo: ["Sarah Lemoine"],
     assignementDate: new Date(),
   },
   {
@@ -41,7 +41,7 @@ const cars = [
     brand: "Renault",
     year: 2018,
     image: "https://example.com/images/clio.jpg",
-    assignedTo: "Michel Duran",
+    assignedTo: ["Michel Duran"],
     assignementDate: new Date(),
   },
   {
@@ -50,7 +50,7 @@ const cars = [
     brand: "BMW",
     year: 2020,
     image: "https://example.com/images/i3.jpg",
-    assignedTo: "Nina Giraud",
+    assignedTo: ["Nina Giraud"],
     assignementDate: new Date(),
   },
   {
@@ -59,7 +59,7 @@ const cars = [
     brand: "Volkswagen",
     year: 2019,
     image: "https://example.com/images/golf.jpg",
-    assignedTo: "Loïc Moreau",
+    assignedTo: ["Loïc Moreau"],
     assignementDate: new Date(),
   },
   {
@@ -68,7 +68,7 @@ const cars = [
     brand: "Honda",
     year: 2017,
     image: "https://example.com/images/civic.jpg",
-    assignedTo: "Chloé Fabre",
+    assignedTo: ["Chloé Fabre"],
     assignementDate: new Date(),
   },
   {
@@ -77,7 +77,7 @@ const cars = [
     brand: "Nissan",
     year: 2021,
     image: "https://example.com/images/leaf.jpg",
-    assignedTo: "Thomas Leclerc",
+    assignedTo: ["Thomas Leclerc"],
     assignementDate: new Date(),
   },
   {
@@ -86,7 +86,7 @@ const cars = [
     brand: "Audi",
     year: 2020,
     image: "https://example.com/images/a3.jpg",
-    assignedTo: "Emma Barret",
+    assignedTo: ["Emma Barret"],
     assignementDate: new Date(),
   },
   {
@@ -95,7 +95,7 @@ const cars = [
     brand: "Ford",
     year: 2018,
     image: "https://example.com/images/fiesta.jpg",
-    assignedTo: "Yassine Hamdi",
+    assignedTo: ["Yassine Hamdi"],
     assignementDate: new Date(),
   },
   {
@@ -104,7 +104,7 @@ const cars = [
     brand: "Renault",
     year: 2022,
     image: "https://example.com/images/zoe.jpg",
-    assignedTo: "Alice Renard",
+    assignedTo: ["Alice Renard"],
     assignementDate: new Date(),
   },
 ];

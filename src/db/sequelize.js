@@ -26,7 +26,14 @@ const testConnexion = async () => {
   }
 };
 
+const syncDb = async () => {
+  const Car = require("../models/car");
+  await Car.sync({ force: true });
+  console.log("Base de données synchronisée");
+};
+
 module.exports = {
   sequelize,
   testConnexion,
+  syncDb,
 };

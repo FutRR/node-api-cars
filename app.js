@@ -5,21 +5,28 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const favicon = require("serve-favicon");
 const { success, getUniqueId } = require("./helper");
-const { sequelize, testConnexion } = require("./src/db/sequelize");
+const { sequelize, testConnexion, syncDb } = require("./src/db/sequelize");
+const Car = require("./src/models/car");
 let cars = require("./src/db/mock-cars");
 
 const initializeApp = async () => {
   try {
     await testConnexion();
+    await syncDb();
 
-    const Car = require("./src/models/car");
-    await Car.sync({});
-    console.log("Base de données synchronisée");
-
-    // Start server only after DB is ready
-    app.listen(port, () => {
-      console.log(`Serveur lancé sur http://localhost:${port}`);
-    });
+    await Promise.all(
+      cars.map(async (car) => {
+        const createdCar = await Car.create({
+          name: car.name,
+          brand: car.brand,
+          year: car.year,
+          image: car.image,
+          assignedTo: car.assignedTo,
+          assignementDate: car.assignementDate || new Date(),
+        });
+        console.log(createdCar.toJSON());
+      })
+    );
   } catch (error) {
     console.error("Erreur d'initialisation:", error);
     process.exit(1);
