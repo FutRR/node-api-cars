@@ -23,16 +23,13 @@ app.get(`/api/cars/:id`, (req, res) => {
   const id = parseInt(req.params.id);
   const car = cars.find((car) => car.id === id);
   const message = "Une voiture à été trouvée";
+  console.log(car);
 
-  if (!car.id) {
-    return res.status(400).json({ error: "Identifiant introuvable" });
+  if (car == undefined) {
+    return res.status(404).json({ error: "Identifiant introuvable" });
   }
 
   res.json(success(message, car));
-
-  if (!car) {
-    return res.status(404).json({ error: "Voiture introuvable" });
-  }
 });
 
 app.post("/api/cars", (req, res) => {
@@ -42,6 +39,16 @@ app.post("/api/cars", (req, res) => {
   cars.push(newCar);
 
   res.json(success(message, newCar));
+});
+
+app.put(`/api/cars/:id`, (req, res) => {
+  const id = parseInt(req.params.id);
+  let car = cars.find((car) => car.id === id);
+  const newCar = { ...req.body };
+  const message = `La voiture ${car.brand} ${car.name} a bien été modifiée`;
+  car = Object.assign(car, newCar);
+
+  res.json(success(message, car));
 });
 
 app.listen(port, () => {
