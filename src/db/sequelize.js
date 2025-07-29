@@ -1,12 +1,18 @@
-const { Sequelize } = require("sequelize");
+const now = new Date();
+const formattedDate = now.toLocaleString("fr-FR", {
+  day: "2-digit",
+  month: "2-digit",
+  year: "numeric",
+  hour: "2-digit",
+  minute: "2-digit",
+  hour12: false,
+});
 
 const testConnexion = async () => {
   try {
-    await Sequelize.authenticate();
-    console.log("Connexion réussie à la BDD.");
+    await sequelize.authenticate();
+    console.log(`${formattedDate} - Connexion réussie à la BDD.`);
   } catch (error) {
-    console.error("Connexion à la BDD impossible:", error);
+    console.error(`${formattedDate}Connexion à la BDD impossible:`, error);
   }
 };
-
-testConnexion();
