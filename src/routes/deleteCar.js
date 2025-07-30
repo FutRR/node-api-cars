@@ -1,4 +1,5 @@
 const { Car } = require("../db/sequelize");
+const { sendError } = require("../helpers/helper");
 
 module.exports = (app) => {
   app.delete("/api/cars/:id", async (req, res) => {
@@ -6,10 +7,8 @@ module.exports = (app) => {
       const id = req.params.id;
       const car = await Car.findByPk(id);
 
-      if (!car) {
-        return res.status(404).json({
-          message: "Voiture non trouvée",
-        });
+      if (car === null) {
+        return sendError(res, 404, "Voiture introuvable");
       }
 
       const deletedCar = car;
@@ -19,9 +18,7 @@ module.exports = (app) => {
         message: `La voiture ${deletedCar.brand} ${deletedCar.name} a bien été supprimée`,
       });
     } catch (error) {
-      res
-        .status(500)
-        .json({ message: "Suppression de la voiture échouée: ", data: error });
+      return sendError(res, 500, "Suppression de la voiture échouée: ", error);
     }
   });
 };

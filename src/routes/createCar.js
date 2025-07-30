@@ -1,4 +1,5 @@
 const { Car } = require("../db/sequelize");
+const { sendError } = require("../helpers/helper");
 
 module.exports = (app) => {
   app.post("/api/cars", async (req, res) => {
@@ -10,19 +11,12 @@ module.exports = (app) => {
         data: createdCar,
       });
     } catch (error) {
-      // Check if it's a validation error
-      if (error.name === "SequelizeValidationError") {
-        return res.status(400).json({
-          message: "Erreur de validation lors de la création :",
-          data: error.errors,
-        });
-      }
-
-      // Other errors (server errors)
-      res.status(500).json({
-        message: "Erreur lors de la création d'une nouvelle voiture :",
-        data: error,
-      });
+      return sendError(
+        res,
+        500,
+        "Erreur lors de la création d'une nouvelle voiture :",
+        error
+      );
     }
   });
 };

@@ -6,16 +6,17 @@ module.exports = (app) => {
       const id = req.params.id;
 
       const car = await Car.findByPk(id);
+
+      if (car === null) {
+        return sendError(res, 404, "Voiture introuvable");
+      }
+
       res.status(200).json({
         message: `Informations de la voiture ${car.brand} ${car.name} :`,
         data: car,
       });
     } catch (error) {
-      let status = car === undefined ? 404 : 500;
-      res.status(status).json({
-        message: "Récupération de la voiture échouée: ",
-        data: error,
-      });
+      return sendError(res, 500, "Récupération de la voiture échouée: ", error);
     }
   });
 };
