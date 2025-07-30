@@ -1,9 +1,10 @@
 const { Op, where } = require("sequelize");
 const { Car } = require("../db/sequelize");
 const { sendError } = require("../helpers/helper");
+const auth = require("../auth/auth");
 
 module.exports = (app) => {
-  app.get("/api/cars", async (req, res) => {
+  app.get("/api/cars", auth, async (req, res) => {
     try {
       if (req.query.name) {
         const name = req.query.name;
