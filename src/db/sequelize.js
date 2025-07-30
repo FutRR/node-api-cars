@@ -3,6 +3,7 @@ const { Sequelize, DataTypes } = require("sequelize");
 const CarModel = require("../models/car");
 const UserModel = require("../models/user");
 const cars = require("./mock-cars");
+const bcrypt = require("bcrypt");
 
 const sequelize = new Sequelize("parc_auto", "root", "", {
   host: "localhost",
@@ -35,9 +36,10 @@ const initDb = async () => {
       )
     );
 
+    const hash = await bcrypt.hash("jaimelespommes123", 10);
     await User.create({
       username: "FutRR",
-      password: "jaimelespommes123",
+      password: hash,
     });
     console.log((user) => console.log(user.toJSON()));
 

@@ -16,11 +16,15 @@ app.use(bodyParser.json());
 initDb();
 
 //Routes
+//Car
 require("./src/routes/findAllCars")(app);
 require("./src/routes/findCarByPk")(app);
 require("./src/routes/createCar")(app);
 require("./src/routes/updateCar")(app);
 require("./src/routes/deleteCar")(app);
+
+//User
+require("./src/routes/login")(app);
 
 // Middleware 404
 app.use((req, res) => {
