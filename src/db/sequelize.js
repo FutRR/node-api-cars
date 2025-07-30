@@ -1,6 +1,7 @@
 // src/db/sequelize.js
-const { Sequelize } = require("sequelize");
+const { Sequelize, DataTypes } = require("sequelize");
 const CarModel = require("../models/car");
+const UserModel = require("../models/user");
 const cars = require("./mock-cars");
 
 const sequelize = new Sequelize("parc_auto", "root", "", {
@@ -11,6 +12,7 @@ const sequelize = new Sequelize("parc_auto", "root", "", {
 });
 
 const Car = CarModel(sequelize);
+const User = UserModel(sequelize, DataTypes);
 
 const initDb = async () => {
   try {
@@ -33,10 +35,16 @@ const initDb = async () => {
       )
     );
 
+    await User.create({
+      username: "FutRR",
+      password: "jaimelespommes123",
+    });
+    console.log((user) => console.log(user.toJSON()));
+
     console.log("Données mock insérées.");
   } catch (error) {
     console.error("Erreur de synchronisation BDD :", error);
   }
 };
 
-module.exports = { sequelize, initDb, Car };
+module.exports = { sequelize, initDb, Car, User };
