@@ -1,39 +1,42 @@
+// src/db/sequelize.js
 const { Sequelize } = require("sequelize");
-// Configuration Sequelize
+const CarModel = require("../models/car");
+const cars = require("./mock-cars");
+
 const sequelize = new Sequelize("parc_auto", "root", "", {
   host: "localhost",
-  port: 3307,
   dialect: "mariadb",
   logging: false,
+  port: 3307,
 });
 
-const now = new Date();
-const formattedDate = now.toLocaleString("fr-FR", {
-  day: "2-digit",
-  month: "2-digit",
-  year: "numeric",
-  hour: "2-digit",
-  minute: "2-digit",
-  hour12: false,
-});
+const Car = CarModel(sequelize);
 
-const testConnexion = async () => {
+const initDb = async () => {
   try {
     await sequelize.authenticate();
-    console.log(`${formattedDate} - Connexion réussie à la BDD.`);
+    console.log("Connexion réussie à la BDD !");
+
+    await sequelize.sync({ force: true });
+    console.log("Modèles synchronisés avec la base de données.");
+
+    await Promise.all(
+      cars.map((car) =>
+        Car.create({
+          name: car.name,
+          brand: car.brand,
+          year: car.year,
+          image: car.image,
+          assignedTo: [car.assignedTo],
+          assignementDate: car.assignementDate || new Date(),
+        })
+      )
+    );
+
+    console.log("Données mock insérées.");
   } catch (error) {
-    console.error(`${formattedDate}Connexion à la BDD impossible:`, error);
+    console.error("Erreur de synchronisation BDD :", error);
   }
 };
 
-const syncDb = async () => {
-  const Car = require("../models/car");
-  await Car.sync({ force: true });
-  console.log("Base de données synchronisée");
-};
-
-module.exports = {
-  sequelize,
-  testConnexion,
-  syncDb,
-};
+module.exports = { sequelize, initDb, Car };
