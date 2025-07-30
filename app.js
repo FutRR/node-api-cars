@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const favicon = require("serve-favicon");
 const { initDb } = require("./src/db/sequelize");
+const { sendError } = require("./src/helpers/helper");
 
 // Middlewares
 app.use(favicon(__dirname + "/public/pakistan.ico"));
@@ -23,7 +24,7 @@ require("./src/routes/deleteCar")(app);
 
 // Middleware 404
 app.use((req, res) => {
-  res.status(404).json({ message: "Ressource non trouvée." });
+  sendError(res, 404, "Ressource introuvable");
 });
 
 // Lancement du serveur
