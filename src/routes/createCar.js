@@ -1,6 +1,6 @@
 const { Car } = require("../db/sequelize");
 const { sendError } = require("../helpers/helper");
-const { ValidationError } = require("sequelize");
+const { ValidationError, UniqueConstraintError } = require("sequelize");
 
 module.exports = (app) => {
   app.post("/api/cars", async (req, res) => {
@@ -14,6 +14,9 @@ module.exports = (app) => {
     } catch (error) {
       if (error instanceof ValidationError) {
         return sendError(res, 400, "Erreur de validation", error);
+      }
+      if (error instanceof UniqueConstraintError) {
+        return sendError(res, 400, "Le modèle doit être unique", error);
       }
       return sendError(
         res,

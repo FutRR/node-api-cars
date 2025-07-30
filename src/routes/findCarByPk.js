@@ -1,4 +1,5 @@
 const { Car } = require("../db/sequelize");
+const { sendError } = require("../helpers/helper");
 
 module.exports = (app) => {
   app.get("/api/cars/:id", async (req, res) => {
